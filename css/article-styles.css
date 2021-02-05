@@ -7,6 +7,15 @@ a{
 a:hover{
   color: #86c232;
 }
+h4{
+  font-family: 'Playfair Display', serif !important;
+}
+h5{
+  font-family: 'Playfair Display', serif !important;
+}
+h6{
+  font-family: 'Playfair Display', serif !important;
+}
 footer{
   background-color: #222629;
   text-align: center;
@@ -22,6 +31,11 @@ footer{
 .row {
   padding-right: 0;
   margin-right: 0;
+}
+/* about me content */
+.myName{
+  display: inline;
+  color: #86c232;
 }
 
 /* navbar */
@@ -67,11 +81,9 @@ footer{
   background-color: #222629;
   padding-bottom: 1%;
 }
-.all-body p{
-  color: #DDDDDD;
-}
 .outer-container{
   background-color: #2c3134;
+  color: #DDDDDD;
   border-radius: 5px;
   margin: auto 5%;
   padding: 1.5%;

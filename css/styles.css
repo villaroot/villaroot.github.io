@@ -43,7 +43,7 @@ footer{
 .jumbotron{
   background-color: #222629;
   color:white;
-  height: 30rem;
+  height: 25rem;
   margin-bottom: 0;
   text-align: center;
 }
@@ -53,7 +53,6 @@ footer{
 .jumbo-p{
   color: #6b6e70;
   margin: 2% auto;
-  width: 24rem;
 }
 
 /* articles */
@@ -66,7 +65,7 @@ footer{
 .outer-title{
   font-family: 'Playfair Display', serif;
   margin-left: 1%;
-  padding-left: 1%;
+  padding-left: 1.5%;
   border-left: 1px solid #6b6e70;
 }
 

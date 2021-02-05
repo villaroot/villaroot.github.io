@@ -53,6 +53,7 @@ footer{
 .jumbo-header{
   font-family: 'Playfair Display', serif !important;
 }
+
 .jumbo-p{
   color: #6b6e70;
   margin: 2% auto;
@@ -88,6 +89,7 @@ footer{
 }
 .inner-article{
   margin: auto .25% 2%;
+  border-bottom: 1px solid #DDDDDD;
 }
 .inner-date{
   font-style: italic;
