@@ -85,7 +85,7 @@ footer{
 /* inner article conent */
 .inner-header{
   font-family: 'Playfair Display', serif;
-  padding-left: 1%;
+  /* padding-left: 1%; */
 }
 .inner-article{
   margin: auto .25% 2%;
@@ -99,10 +99,10 @@ footer{
   color: #86c232;
 }
 .inner-image{
-  margin: 0 5px 5px 0;
-  width: 300px;
+  margin: 0 8px 5px 0;
+  max-width: 275px;
   border-radius: 5px;
-  height: auto;
+  max-height: 150px;
 }
 .inner-article p{
   padding-top: .5%;
@@ -111,7 +111,7 @@ footer{
 /* footer */
 .foot{
   padding: 1.3rem 0;
-  border-top: 1px solid #61892f;
+  border-top: 1px solid #86c232;
   text-align: center;
 
 }

@@ -70,7 +70,7 @@ footer{
 }
 
 .jumbo-image{
-  width: 100%;
+  width: 350px;
   height: auto;
   border-radius: 5px;
 }
@@ -88,12 +88,25 @@ footer{
   margin: auto 5%;
   padding: 1.5%;
 }
+pre {
+  color: #DDDDDD;
+  border: 1px solid #86c232;
+  border-radius: 5px;
+}
 
-
+/* mobile view */
+@media(max-width: 650px){
+    pre{
+      font-size: 10px;
+    }
+    p{
+      font-size: .9rem;
+    }
+}
 /* footer */
 .foot{
   padding: 1.3rem 0;
-  border-top: 1px solid #61892f;
+  border-top: 1px solid #86c232;
   text-align: center;
 
 }
