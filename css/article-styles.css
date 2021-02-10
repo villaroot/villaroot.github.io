@@ -55,22 +55,18 @@ footer{
 }
 
 /* Jumbotron content */
-.jumbotron{
+ .jumbotron{
   background-color: #222629;
   color:white;
   margin-bottom: 0;
 }
 .title-container{
   padding-left: 6%;
-  padding-right: 6%;
-  align-items: center;
-}
-.jumbo-header{
   font-family: 'Playfair Display', serif !important;
+  padding-right: 6%;
 }
-
 .jumbo-image{
-  width: 350px;
+  max-width: 350px;
   height: auto;
   border-radius: 5px;
 }
@@ -93,11 +89,20 @@ pre {
   border: 1px solid #86c232;
   border-radius: 5px;
 }
-
+.indent {
+  margin-left: 3%;
+}
+.indent-2 {
+  margin-left: 6%;
+}
 /* mobile view */
 @media(max-width: 650px){
-    pre{
-      font-size: 10px;
+    .jumbo-image{
+      width: 250px;
+      height: auto;
+    }
+    pre {
+      font-size: .8rem;
     }
     p{
       font-size: .9rem;

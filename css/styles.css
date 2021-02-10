@@ -86,11 +86,12 @@ footer{
 .inner-title{
   color: #86c232;
 }
+
 .inner-image{
   margin: 0 8px 5px 0;
-  width: 250px;
+  max-width: 250px;
   border-radius: 5px;
-  height: auto;
+  max-height: auto;
 }
 
 /* side container content */
@@ -100,7 +101,7 @@ footer{
   padding-right: 2%;
 }
 .side-article{
-  margin-top: 4%;
+  margin-top: 2%;
 }
 .side-header{
     padding-bottom: 1%;
@@ -110,11 +111,21 @@ footer{
   padding: 3% 3% 10%;
 }
 .side-image{
-  width: 100%;
+  max-width: 90%;
   height: auto;
   border-radius: 5px;
 }
 
+/* smaller screen adjust */
+@media(max-width: 650px){
+    img {
+      max-width: 75%!important;
+      height: auto;
+    }
+    p{
+      font-size: .9rem;
+    }
+}
 
 /* footer */
 .foot{

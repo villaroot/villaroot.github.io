@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Powershell Create User Active Directory</title>
+  <meta name="description" content="Learn how to create users in Active Directory with an Object Oriented Script. Cmdlet New ADUser">
+  <meta name="keywords" content="Windows, System Administration, Powershell, Active Directory, Object Oriented, Create Users, new-aduser, new aduser">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- google font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- CSS stylesheet -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/article-styles.css">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+  <section id="top">
+    <div class="container-fluid">
+
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-md">
+        <a class="navbar-brand" href="../index.html">Villa~Root</a>
+        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarToggler">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarToggler">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-items">
+              <a class="nav-link" href="../windows.html">Windows</a>
+            </li>
+            <li class="nav-items">
+              <a class="nav-link" href="../linux.html">Linux</a>
+            </li>
+            <li class="nav-items">
+              <a class="nav-link" href="../cybersecurity.html">CyberSecurity</a>
+            </li>
+            <li class="nav-items">
+              <a class="nav-link" href="../aboutme.html">About Me</a>
+            </li>
+          </ul>
+        </div>
+
+      </nav>
+    </div>
+  </section>
+
+  <section id="main">
+
+    <!-- jumbotron -->
+    <div class="jumbotron jumbotron-fluid ">
+      <div class="d-flex flex-wrap justify-content-center align-items-center title-container">
+
+        <div class=" image-container ">
+          <img class="jumbo-image" src="../images/PS-general.png" alt="ImageForTitle">
+        </div>
+        <div class="title-container ">
+          <h1 class="jumbo-header">Powershell: Create User Accounts in Active Directory </h1>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- body content -->
+    <div class="all-body">
+      <div class="outer-container shadow-lg p-3 mb-5 rounded">
+        <h4>Summary:</h4>
+        <p>
+          Creating users in Active Directory is a very common task, but can be very tedious to do manually.
+          This led me to create this Object Oriented script which also supports parameters. This same object
+          will be used in other AD posts to allow readers to add them together easily into one script. Just
+          adjust properties to your environment requirements. Cmdlet uses will be New-ADUser.
+        </p>
+        <p>To skip to the full script click <a href="#full-code">here</a> </p><br>
+
+        <h4>Cmdlet:</h4>
+        <p>
+          New-AdUser <br>
+          This cmdlet will be used to create a user in active directory. Supports the option to set the needed properties<br>
+          More info can be found on Microsoft's website: <a href="https://docs.microsoft.com/en-us/powershell/module/addsadministration/new-aduser?view=win10-ps">
+            https://docs.microsoft.com/en-us/powershell/module/addsadministration/new-aduser?view=win10-ps
+          </a>
+        </p>
+        <br>
+        <h4>Details:</h4>
+        <p>
+          Parameters are first set to declare the main variables that we are going to be using. I'm a big
+          fan of using Parameter in scripts, so I include them as often as possible. For creation of an
+          account we will need the following inputs from the user: first/last name, and the group.
+          The script will find the distinguished name of the group, the domain its in, and generate
+          the username on its own.
+        </p>
+        <pre><code>
+  [CmdletBinding()]Param (
+
+      $first = "",
+      $last = "",
+      $userName = "",
+      $group = ""
+
+  )
+            </code></pre>
+
+        <p>
+          Import-module activedirectory is required to use Active Directory in powershell. FYI this can be
+          added in server manager >add feature > ad module for powershell.
+          To allow the script to be run in different domains without modification, ‘longdomain’ finds
+          the current domain and ‘shortdomain’ takes off the ‘.com’ at the end. If your domain
+          doesn’t end in ‘.com’ then no worries, 'shortdomain' will just be set to the full domain.
+          <br><br>
+          here we also introduce the creation of the object we will be using of ‘employee’
+          and call it $userobj outside of the class. <br>
+          modify $password to whichever is the default password in your organization.
+          the script sets the account to change at next logon.
+        </p>
+        <pre><code>
+   Import-Module ActiveDirectory
+   $GLOBAL:longDomain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+   $GLOBAL:shortDomain = ($longDomain -replace '.com','')
+   $userObj = [Employee]::New()
+   $password = "TopSecret123!"
+
+          </code></pre>
+        <p>
+          In ‘ouList’ list, replace the string values with your own OU’s, the numbers aren’t necessary
+          But some people find them easier to use than having to type out the whole name.
+          Now we can ask the user for which group they want to add the user to. This will only
+          be displayed if ‘group’ hasn’t been given as a param with the ‘if(!$group)’ statement.
+          This is essentially saying if the group variable is null or empty perform this action.
+          <br><br>
+          ‘ckey’ gets the value from the array that matches what the user inputs. This helps
+          validate if the entry was properly spelled to reduce errors during account creation.
+        </p>
+        <pre><code>
+  #list of OUs in Active Directory
+  $ouList = ("1 - Sales","2 - HR", "3 - IT", "4 - Accounting")
+
+  Write-Output "Domain is set to: $longDomain"
+
+  #get the OU if it wasn't given as a Parameter
+  if (!$group){
+
+     Write-Output "`nListing groups :" $ouList
+     $group = Read-Host "`nEnter the OU for the user "
+     }
+
+  #grab the proper OU thats found in 'ouList'
+  $ckey =""
+  $ckey = $ouList | Where {$_ -match $group}
+          </code></pre>
+
+        <p>
+          Let’s do a verification check to make sure ‘ckey’ is not actually empty. And if it is, then ask
+          for the user to re-enter the value until ‘ckey’ has a value inside. To do this we’ll put it in a
+          while loop with the condition of ‘!$ckey’ and as mentioned before this is saying to
+          keep looping while value is null or empty.<br><br>
+          As you might have noticed, ckey will have the array entry including the number, so we
+          need to cut that off the first 4 characters like ‘1 - ‘ and just get the name. IMPORTANT:
+          If you did not include numbers in your ‘ouList’ array then remove the substring command.
+        </p>
+
+        <pre><code>
+  #have user renter OU if entry wasn't found in "ouList"
+  while(!$ckey){
+      $group = Read-Host "Entry did not match an OU. Re-Enter the OU"
+      $ckey = $ouList | Where {$_ -match $group}
+  }
+
+  #cut off the numbers ex, '1 - Sales' will just be 'Sales'
+  $ckey = $ckey.Substring(4)
+  Write-Output "The chosen group is "$ckey
+          </code></pre>
+
+        <p>
+          Nothing too fancy here, just ask for the first and last name if it wasn't
+          given as a Parameter.
+        </p>
+
+        <pre><code>
+  #get first and last name if not provided as Param
+  if(!$first){
+      $first = Read-Host "`nEnter the FIRST name " }
+
+  if(!$last){
+      $last = Read-Host "Enter the LAST name " }
+          </code></pre>
+
+        <p>
+          Now that we have all the values we need from the user, lets pass them
+          to our object Employee. We will see these varibles in a little when
+          we declare them in the actual object.
+        </p>
+
+        <pre><code>
+  #Pass values to object
+  $userObj.lastName = $last
+  $userObj.firstName = $first
+  $userObj.userGroup = $ckey
+  $userObj.userPass = $password
+          </code></pre>
+
+        <p>
+          The benefit of creating classes is we can create methods to do all the dirty work which
+          allows the main code to look cleaner. So the first method we would like to do is create a
+          generate a username/Sam account Name for when we create the account. Let’s name
+          it ‘GetSamName’ and only call it if a username wasn’t given as a Parameter.
+
+        </p>
+
+        <pre><code>
+  #generate username if not given from Param
+  if(!$userName){
+      $userObj.GetSamName()}
+  else{
+      $userObj.SamName = $userName }
+
+  Write-Output "Username will be " $userObj.SamName
+          </code></pre>
+
+        <p>
+          For the last part of the main script, before we get to the object, we will call the method
+          to create the account then clear the variables. This is helpful because sometimes they stay
+          in cache and can cause problems if you run the script again since there’s alot of logic that
+          says do such and such if the variable is empty<br><br>
+          Instead of just calling the method I want to put it in a try/catch statement which are great
+          for error handling. If successful then it will print the ‘success’ output and perform a
+          Get-Aduser on the new account to print out its details. If there’s an error then it will
+          display the ‘fail’ message and give the error
+
+        </p>
+
+        <pre><code>
+  try{
+    $userObj.CreateAccount()
+    Write-Output "SUCCESS: Account was created. Outputing Account info below:"
+    Get-ADUser $userObj.SamName
+  }
+  catch{
+    Write-Host "FAIL: account did not get created due to error below:" -ForegroundColor Red
+    $_
+  }
+
+  clear-variable -Name last,first,password,group,username
+          </code></pre>
+
+        <p>
+          Finally welcome to the object of Employee, here we will set the properties
+          and methods. Throughout the object I will refer to this variables with variables
+          of '$this'
+        </p>
+        <pre><code>
+  class Employee{
+    [string]$lastName
+    [string]$firstName
+    [string]$userGroup
+    [string]$SamName
+    [string]$userPass
+          </code></pre>
+
+        <p>
+          Here is our first of two methods ‘GetSamName’ and set as a ‘void’ since we won’t be
+          returning any variable back to the main script. This snippet is where will be modified
+          to however your organization sets the username. Here it takes the first name initial, period,
+          first 6 characters of last name, and a number. So mine would be ,j.villar1'.
+        </p>
+
+        <pre><code>
+  [void]GetSamName(){
+
+    if($this.lastName.Length -le 6){
+        $length = $this.lastName.Length}
+    else{
+        $length = 6 }
+
+    #generate next username available
+    $start = $this.firstName[0] + "."
+    $mid = $this.lastName.Substring(0,$length)
+    $end = 1
+    [string]$fullSam = $start + $mid + $end
+          </code></pre>
+
+        <p>
+          While the username that we generate is taken then add ‘1’ to the end and check again. Repeat
+          until a username is not already taken. Then pass this back to the class property of ‘SamName’
+        </p>
+
+        <pre><code>
+  #check Sam Account Name isn't take, if it is then add '1'
+  while(([ADSISearcher] "SamAccountName=$fullSam").FindOne()){
+      $end += 1
+      [string]$fullSam = $start + $mid + $end
+  }
+  $this.SamName = $fullSam
+
+  }
+          </code></pre>
+
+        <p>
+          At last we finally get to the method to actually create the account. ‘CreateAccount’ is also
+          Set as a ‘void’ since we aren’t returning any variables to the main script. It uses all the
+          Objects set properties and find the distinguished path to the group that user picked.
+          ‘New-AdUser’ sets all the values which again can be customized to however your
+          Organization sets it. Then adds user to be group member with ‘Add-ADGroupMember’
+        </p>
+
+        <pre><code>
+  [void]CreateAccount(){
+    #get group path
+    $dPath = Get-ADOrganizationalUnit -Filter 'Name -eq $this.userGroup' |
+             Select Name,DistinguishedName
+
+    New-ADUser -SamAccountName $this.SamName `
+       -GivenName $this.firstName `
+       -SurName $this.lastName `
+       -userPrincipalName ($this.SamName + "@" + $GLOBAL:longDomain) `
+       -Path $dPath.DistinguishedName `
+       -Name ($this.lastName + "," + $this.firstName) `
+       -Enabled $true `
+       -AccountPassword(ConvertTo-SecureString $this.userPass -AsPlainText -force) `
+       -ChangePasswordAtLogon $true
+
+    #add user to be member of
+    Add-ADGroupMember -Identity $this.userGroup -Members $this.SamName
+  }
+
+
+          </code></pre>
+        <br>
+        <p>
+          Thanks for reading this article about creating users with Powershell while
+          using objects!
+        </p>
+        <br>
+
+        <!-- full script code -->
+        <h4 id="full-code">Full Script Code:</h4>
+        <pre><code>
+  [CmdletBinding()]Param (
+
+      $first = "",
+      $last = "",
+      $userName = "",
+      $group = ""
+
+  )
+
+  Import-Module ActiveDirectory
+  $GLOBAL:longDomain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+  $GLOBAL:shortDomain = ($longDomain -replace '.com','')
+  $userObj = [Employee]::New()
+  $password = "TopSecret123!"
+
+
+  #list of OUs in Active Directory
+  $ouList = ("1 - Sales","2 - HR", "3 - IT", "4 - Accounting")
+
+  Write-Output "Domain is set to: $longDomain"
+
+  #get the OU if it wasn't given as a Parameter
+  if (!$group){
+
+      Write-Output "`nListing groups :" $ouList
+      $group = Read-Host "`nEnter the OU for the user "
+    }
+
+  #grab the proper OU thats found in 'ouList'
+  $ckey =""
+  $ckey = $ouList | Where {$_ -match $group}
+
+
+  #have user renter OU if entry wasn't found in "ouList"
+  while(!$ckey){
+      $group = Read-Host "Entry did not match an OU. Re-Enter the OU"
+      $ckey = $ouList | Where {$_ -match $group}
+  }
+
+  #cut off the numbers ex, '1 - Sales' will just be 'Sales'
+  $ckey = $ckey.Substring(4)
+  Write-Output "The chosen group is "$ckey
+
+  #get first and last name if not provided as Param
+  if(!$first){
+      $first = Read-Host "`nEnter the FIRST name " }
+
+  if(!$last){
+      $last = Read-Host "Enter the LAST name " }
+
+  #Pass values to object
+  $userObj.lastName = $last
+  $userObj.firstName = $first
+  $userObj.userGroup = $ckey
+  $userObj.userPass = $password
+
+  #generate username if not given from Param
+  if(!$userName){
+      $userObj.GetSamName()}
+  else{
+      $userObj.SamName = $userName }
+
+  Write-Output "Username will be " $userObj.SamName
+
+  try{
+      $userObj.CreateAccount()
+      Write-Output "SUCCESS: Account was created. Outputing Account info below:"
+      Get-ADUser $userObj.SamName
+  }
+  catch{
+      Write-Host "FAIL: account did not get created due to error below:" -ForegroundColor Red
+      $_
+  }
+
+  clear-variable -Name last,first,password,group,username
+
+  ############CLASS###########
+  class Employee{
+    [string]$lastName
+    [string]$firstName
+    [string]$userGroup
+    [string]$SamName
+    [string]$userPass
+
+    [void]GetSamName(){
+
+      if($this.lastName.Length -le 6){
+          $length = $this.lastName.Length}
+      else{
+          $length = 6 }
+
+      #generate next username available
+      $start = $this.firstName[0] + "."
+      $mid = $this.lastName.Substring(0,$length)
+      $end = 1
+
+      [string]$fullSam = $start + $mid + $end
+
+      #check Sam Account Name isn't take, if it is then add '1'
+      while(([ADSISearcher] "SamAccountName=$fullSam").FindOne()){
+          $end += 1
+          [string]$fullSam = $start + $mid + $end
+      }
+      $this.SamName = $fullSam
+
+    }
+
+    [void]CreateAccount(){
+      #get group path
+      $dPath = Get-ADOrganizationalUnit -Filter 'Name -eq $this.userGroup' |
+           Select Name,DistinguishedName
+
+      New-ADUser -SamAccountName $this.SamName `
+           -GivenName $this.firstName `
+           -SurName $this.lastName `
+           -userPrincipalName ($this.SamName + "@" + $GLOBAL:longDomain) `
+           -Path $dPath.DistinguishedName `
+           -Name ($this.lastName + "," + $this.firstName) `
+           -Enabled $true `
+           -AccountPassword(ConvertTo-SecureString $this.userPass -AsPlainText -force) `
+           -ChangePasswordAtLogon $true
+
+           #add user to be member of
+           Add-ADGroupMember -Identity $this.userGroup -Members $this.SamName
+    }
+
+  }
+          </code></pre>
+
+
+
+      </div>
+    </div>
+
+
+
+  </section>
+
+  <!-- footer -->
+  <footer class="foot" id="footer">
+    <div class="footer-text">
+      <p>© Copyright 2021 VillaRoot</p>
+    </div>
+  </footer>
+</body>
+
+</html>
