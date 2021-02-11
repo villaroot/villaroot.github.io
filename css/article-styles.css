@@ -89,6 +89,9 @@ pre {
   border: 1px solid #86c232;
   border-radius: 5px;
 }
+.indent-half{
+  margin-left: 1.5%;
+}
 .indent {
   margin-left: 3%;
 }
