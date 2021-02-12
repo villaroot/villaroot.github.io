@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="../images/favicon.png">
+  <title>Powershell Enable Disable Reset AD</title>
+  <meta name="description" content="Learn how to disable,enabld and reset passwords to users in
+      Active Directory with an Object Oriented Script. Cmdlet New ADUser">
+  <meta name="keywords" content="VillaRoot, Villa root, Windows, System Administration,
+    Powershell, Active Directory, Object Oriented, disable, enable, reset password, AD, Server">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- google font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- CSS stylesheet -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/article-styles.css">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+  <section id="top">
+    <div class="container-fluid">
+
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-md">
+        <a class="navbar-brand" href="../index.html">Villa~Root</a>
+        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarToggler">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarToggler">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-items">
+              <a class="nav-link" href="../windows.html">Windows</a>
+            </li>
+            <li class="nav-items">
+              <a class="nav-link" href="../linux.html">Linux</a>
+            </li>
+            <li class="nav-items">
+              <a class="nav-link" href="../cybersecurity.html">CyberSecurity</a>
+            </li>
+            <li class="nav-items">
+              <a class="nav-link" href="../aboutme.html">About Me</a>
+            </li>
+          </ul>
+        </div>
+
+      </nav>
+    </div>
+  </section>
+
+  <section id="main">
+
+    <!-- jumbotron -->
+    <div class="jumbotron jumbotron-fluid ">
+      <div class="d-flex flex-wrap justify-content-center align-items-center title-container">
+
+        <div class=" image-container ">
+          <img class="jumbo-image" src="../images/Main-PS.png" alt="ImageForTitle">
+        </div>
+        <div class="title-container ">
+          <h1 class="jumbo-header">Powershell: Reset Password, Enable, and Disable User Accounts in Active Directory </h1>
+        </div>
+
+      </div>
+    </div>
+
+
+
+        <!-- body content -->
+        <div class="all-body">
+          <div class="outer-container shadow-lg p-3 mb-5 rounded">
+            <h4>Summary:</h4>
+            <p>
+              An object oriented Powershell script to automate the tasks of Resetting
+              Passwords, Enabling, and Disabling accounts in Active Directory. An object
+              oriented Powershell script to automate the tasks of Resetting Passwords, Enabling,
+              and Disabling accounts in Active Directory. The Cmdlets used to perform those
+              actions will be Enable-ADAccount, Set-ADAccountPassword, and Disable-ADAccount.
+            </p>
+            <p>To skip to the full script click <a href="#full-code">here</a> </p><br>
+
+            <!-- explain cmdlets -->
+            <h4>Cmdlet(s):</h4>
+            <p>
+              Enable-ADAccount<br>
+              Enables an Active Directory account, declared with ‘Identity’ Parameter.<br>
+              Ex. Enable-ADAccount -Identity User1
+              <br>More info on Microsoft’s website:
+              <a href="https://docs.microsoft.com/en-us/powershell/module/addsadministration/enable-adaccount?view=win10-ps">
+              Microsoft Enable Accounts</a>
+
+              <br><br>Disable-ADAccount<br>
+              Disable an Active Directory account, declared with ‘Identity’ Parameter.<br>
+              Ex. Disable-ADAccount -Identity User1
+
+              <br>More info on Microsoft’s website:
+              <a href="https://docs.microsoft.com/en-us/powershell/module/addsadministration/disable-adaccount?view=win10-ps">
+                Microsoft Disable Accounts</a>
+
+              <br><br>Set-ADAccountPassword<br>
+              Change the Password to an account, declared with ‘Identity’ Parameter. Password needs to be
+              provided as a secure string and declared with ‘Reset’ and ‘NewPassword’. <br>'Reset' allows the change
+              without having to give the old password too<br>
+              Ex. Set-ADAccountPassword -Identity User1 -Reset -NewPassword (ConverTo-SecureString -AsPlainText “Password123” -Force)
+              <br>More info on Microsoft’s website:
+              <a href="https://docs.microsoft.com/en-us/powershell/module/addsadministration/set-adaccountpassword?view=win10-ps">
+                Microsoft Reset Password</a>
+            </p>
+            <br>
+
+            <!-- explain the code  -->
+            <h4>Details:</h4>
+            <p>
+              We'll start off setting the parameters of action and username. ‘Action’ will be the variable
+              used to hold the user’s decision, as they will be prompted for a decision to enable, create or
+              reset. Username will be the SamAccountName found in Active Directory. <br>
+
+              Import-Module ActiveDirectory is needed to perform actions to Active Directory. The object
+              Employee will be created later in the script, for now we’ll just declare it and hold it in a
+              variable object of ‘userObj’. ‘Password’ will hold whichever default password you want to set
+              the passwords to when we reset them. This will be changed at next logon, and finally we pass
+              the string to the ‘Employee’ class through the variable we declared of ‘userObj’<br>
+             </p>
+            <pre><code>
+  #performs actions on an Active directory Acount
+  #reset password,enable,disable
+  [CmdletBinding()]Param (
+
+        $action = $null,
+        $userName = $null
+
+    )
+
+  Import-Module ActiveDirectory
+  $userObj = [Employee]::New()
+  $password = "TopSecret123!"
+  $userObj.password = $password
+
+            </code></pre>
+
+            <p>
+              If the values of ‘username’ and ‘action’ were not provided as parameters then we will
+               ask the user for them. Then pass the ‘username’ to the object we are using which will
+               be used as the SamAccountName when we perform the Cmdlets.
+            </p>
+            <pre><code>
+  #get username and pass to object
+  if(!$username){
+    $username = Read-Host "Enter the username"
+  }
+
+  #ask user which option to perform
+  if(!$action){
+    Write-host "Listing actions: `n`n1 - Reset `n2 - Enable `n3 - Disable`n"
+    $action = Read-Host "Which action would you like to perform?"
+  }
+
+  $userObj.SamName = $username
+
+            </code></pre>
+
+            <p>
+              The ‘action’ variable will now be passed through a switch statement to decide which commands to perform.
+              Switches are very similar to if/else statements in that they are condition handlers. The real difference
+              comes when the amount of conditions that are being handled. Switch statements process a higher number of
+              conditions more efficiently than if/else. Even though only three choices are presented, This script can
+              grow to perform other actions such as create,delete, provide general info, etc. To prepare for that, I
+              chose a switch plus I personally think they look alot cleaner. <br><br>
+              The output presented (such as ‘1 - Reset)’  will either get an input of ‘1’ or ‘reset’ so in order
+              to accept two values I like to use the ‘-regex’ parameter in the switch statement. At a high level it’s
+              pretty much like using a ‘-match’ option where it matches the provided variable to the options, in this
+              case ‘1’ or ‘enable’. Which doesn’t require a condition of ‘x’ exactly equals to ‘y’ but more of a ‘x’
+              matches some parts of ‘y’ <br><br>
+              Try/Catch statements are great for handling errors. Essentially the script will try ‘x’ commands, but
+              if at any point it produces an error, it will immediately go to the ‘catch’ block and perform ‘y’
+              commands inside it. When it goes to the ‘catch’ block you can output the error with ‘$_’ which holds
+              the latest output, in this case the error. <br><br>
+              With all that, we can now call the method to reset the password then output the user’s info with the
+              Get-ADUser Cmdlet. Selecting only the related properties to be outputted. ‘Fl’ formats the output in a
+              list. We will go through the ‘ResetPassword’ method when we get to the Employee object.
+
+            </p>
+            <pre><code>
+  #perform action that user chose
+   switch -regex ($action){
+     "(1|Reset)"{
+       try {
+         $userObj.ResetPassword()
+         get-aduser $username -Properties passwordlastset,lockedout |
+             select SamAccountName, Enabled, PasswordLastSet,Lockedout |fl
+       }
+       catch {
+         Write-Host "`nFAILED: Password did NOT get reset. Outputing error: "-ForegroundColor Red
+         $_
+        }
+     break}
+
+            </code></pre>
+
+            <p>
+              Continuing in the 'switch' decisions we provide the decisions for ‘2 Enable’ and
+              ‘3 Disable’. Using ‘try/catch’ we try to perform the method call to perform the related
+              commands, output the related info with ‘Get-Aduser’. If any errors occur during this,
+              it will go to the ‘catch’ block and perform those actions.  <br><br>
+              ‘Default’ is called whenever none of the other switch options are used. It’s like the
+              ‘else’ in if/else statements. Once all that is run through we clear the variables with ‘clear-variable’.
+            </p>
+            <pre><code>
+  "(2|Enable)"{
+    try {
+      $userObj.EnableUser()
+      Get-ADuser $username | Select SamAccountname, enabled
+    }
+    catch {
+      Write-Host "`nFAILED: Account did not get enabled. Outputing error: "-ForegroundColor Red
+      $_
+     }
+    break}
+
+  "(3|Disable)"{
+    try {
+      $userObj.DisableUser()
+      Get-ADuser $username | Select SamAccountname, enabled
+    }
+    catch {
+      Write-Host "`nFAILED: Account did not get disabled. Outputing error: "-ForegroundColor Red
+      $_
+     }
+    break}
+
+    default{
+      write-host "$action is an invalid option"
+    }
+
+  }
+
+  #clear variables
+  clear-variable -Name action,userName,password
+            </code></pre>
+
+
+              <p>
+                Now we get to the ‘Employee’ object we created at the beginning, set the property names,
+                and it’s methods that perform resetting passwords, enabling and disabling accounts.
+                ‘$this’ is just an easy way to refer to whichever object it’s inside. Ex. read
+                ‘$this.SamName’ as ‘Employee.SamName’<br>
+
+                The ‘RestPassword’ method is declared as a ‘void’ as we will not be returning anything
+                back when it’s called. There will be outputs to let the user know which step it is on.
+                Fyi, at anypoint there are failures, it will stop and immediately go  to the ‘catch’
+                block from the main script. <br>
+                Set-ADAccountPassword will be used to set the password for the user that is declared with
+                ‘Identity’.  The new password is set with ‘NewPassword’ and we will use ‘Reset’ so that
+                we don’t have to provide the old password too. The password has to be given as a secure
+                string which can be changed with ‘ConvertTo-Secure-String’.<br><br>
+                It’s preferred to force the user to change it once they log in, if not they’ll probably
+                put it off and end up keeping that default password till the next time it gets reset.
+                To force them to change we will use the ‘Set-Aduser’ Cmdlet which allows modifications
+                to already existing accounts. Here we modify the ‘ChangePasswordAtLogon’
+                property to ‘$true’. <br><br>
+
+                Whenever users input their passwords too many times they will probably get their
+                accounts locked. So we’ll just unlock them to avoid that issue with ‘Unlock-ADAccount’
+                then provide the username.
+
+              </p>
+              <pre><code>
+  ############CLASS###########
+   class Employee {
+     [string]$SamName
+     [string]$password
+
+     [void]ResetPassword() {
+       Write-Host "Reseting password...`n"
+       Set-ADAccountPassword -Identity $this.SamName -NewPassword `
+           (ConvertTo-SecureString -AsPlainText $this.password -Force) -Reset
+       Set-ADUser $this.SamName -ChangePasswordAtLogon $true
+       Write-Host "`nCompleted reseting  the password"
+
+       Unlock-ADAccount -Identity $this.SamName
+       Write-Host "Account is also unlocked"
+       Write-Host "SUCCESS: Password reseted, and account unlocked. Outputing info:"
+     }
+
+
+              </code></pre>
+            <p>
+              Lastly we end with the Enable and Disable methods. Pretty simple commands,
+              so not much explanation needed. Enable-ADAccount enables the account given,
+              and Disable-ADAccount disables the account given. <br><br>
+              Just as bonus info, if you need to disable or enable everyone in an OU
+              use a command as such:<br> Get-Aduser -filter ‘Name -like “*”’
+              -SearchBase “OU=Finance,OU=Users, DC=villaroot,DC=com” | Disable-ADAccount <br>
+              Essentially Get-Aduser grabs all the accounts provided in the SearchBase,
+              then it Disables whatever it grabs with Disable-ADAccount. change to Enable-ADAccount
+              to enable instead.
+            </p>
+            <pre><code>
+    [void]EnableUser(){
+      Write-Host "Enabling Account...`n"
+      Enable-ADAccount -Identity $this.SamName
+      Write-Host "SUCCESS: Account got enabled. Outputing account info:"
+    }
+
+    [void]DisableUser() {
+      Write-Host "Disabling Account...`n"
+      Disable-ADAccount -Identity $this.SamName
+      Write-Host "SUCCESS: Account got disabled. Outputing account info:"
+    }
+   }
+
+            </code></pre>
+            <p>
+              Here's a snippet of the code running through the enable option without and
+              with parameters being given.
+            </p>
+            <img class ="article-image"
+              src="../images/Windows-Images/Enable-User-Run.png" alt="running-the-script-image">
+
+            <p>
+              <br>Thanks for reading this article using Powreshell to Reset Passwords,
+              Disable, and Enable Users in Active Directory while using objects!
+            </p>
+            <br>
+
+            <!-- full script code -->
+            <h4 id="full-code">Full Script Code:</h4>
+            <pre><code>
+  #performs actions on an Active directory Acount
+  #reset password,enable,disable
+  [CmdletBinding()]Param (
+
+      $action = $null,
+      $userName = $null
+
+    )
+
+    Import-Module ActiveDirectory
+    $userObj = [Employee]::New()
+    $password = "TopSecret123!"
+    $userObj.password = $password
+
+    #get username and pass to object
+    if(!$username){
+      $username = Read-Host "Enter the username"
+    }
+
+    #ask user which option to perform
+    if(!$action){
+      Write-host "Listing actions: `n`n1 - Reset `n2 - Enable `n3 - Disable`n"
+      $action = Read-Host "Which action would you like to perform?"
+    }
+
+    $userObj.SamName = $username
+
+    #perform action that user chose
+    switch -regex ($action){
+      "(1|Reset)"{
+        try {
+          $userObj.ResetPassword()
+          get-aduser $username -Properties passwordlastset,lockedout |
+              select SamAccountName, Enabled, PasswordLastSet,Lockedout |fl
+        }
+        catch {
+          Write-Host "`nFAILED: Password did NOT get reset. Outputing error: "-ForegroundColor Red
+          $_
+         }
+      break}
+
+      "(2|Enable)"{
+         try {
+          $userObj.EnableUser()
+          Get-ADuser $username | Select SamAccountname, enabled
+        }
+        catch {
+          Write-Host "`nFAILED: Account did not get enabled. Outputing error: "-ForegroundColor Red
+          $_
+         }
+      break}
+
+      "(3|Disable)"{
+        try {
+          $userObj.DisableUser()
+          Get-ADuser $username | Select SamAccountname, enabled
+        }
+        catch {
+          Write-Host "`nFAILED: Account did not get disabled. Outputing error: "-ForegroundColor Red
+          $_
+       }
+      break}
+
+      default{
+          write-host "$action is an invalid option"
+      }
+
+    }
+
+    #clear variables
+    clear-variable -Name action,userName,password
+
+    ############CLASS###########
+    class Employee {
+      [string]$SamName
+      [string]$password
+
+      [void]ResetPassword() {
+          Write-Host "Reseting password...`n"
+          Set-ADAccountPassword -Identity $this.SamName -NewPassword `
+              (ConvertTo-SecureString -AsPlainText $this.password -Force) -Reset
+          Set-ADUser $this.SamName -ChangePasswordAtLogon $true
+          Write-Host "`nCompleted reseting  the password"
+
+          Unlock-ADAccount -Identity $this.SamName
+          Write-Host "Account is also unlocked"
+          Write-Host "SUCCESS: Password reseted, and account unlocked. Outputing info:"
+      }
+
+      [void]EnableUser(){
+          Write-Host "Enabling Account...`n"
+          Enable-ADAccount -Identity $this.SamName
+          Write-Host "SUCCESS: Account got enabled. Outputing account info:"
+      }
+
+      [void]DisableUser() {
+          Write-Host "Disabling Account...`n"
+          Disable-ADAccount -Identity $this.SamName
+          Write-Host "SUCCESS: Account got disabled. Outputing account info:"
+      }
+   }
+              </code></pre>
+
+
+
+          </div>
+        </div>
+
+
+      </section>
+
+      <!-- footer -->
+      <footer class="foot" id="footer">
+        <div class="footer-text">
+          <p>© Copyright 2021 VillaRoot</p>
+        </div>
+      </footer>
+    </body>
+
+    </html>

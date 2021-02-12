@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <link rel="icon" href="../images/favicon.png">
   <title>Powershell Create User Active Directory</title>
   <meta name="description" content="Learn how to create users in Active Directory with an Object Oriented Script. Cmdlet New ADUser">
   <meta name="keywords" content="VillaRoot, Villa root, Windows, System Administration, Powershell, Active Directory, Object Oriented, Create Users, new-aduser, new aduser">
@@ -87,9 +88,10 @@
         <h4>Cmdlet:</h4>
         <p>
           New-AdUser <br>
-          This cmdlet will be used to create a user in active directory. Supports the option to set the needed properties<br>
+          Used to create new users in active directory. Requires SamAccountName to be declared as a property, the rest
+          are optional at the time<br>
           More info can be found on Microsoft's website: <a href="https://docs.microsoft.com/en-us/powershell/module/addsadministration/new-aduser?view=win10-ps">
-            https://docs.microsoft.com/en-us/powershell/module/addsadministration/new-aduser?view=win10-ps
+            Microsoft Create Accounts
           </a>
         </p>
         <br>
@@ -130,7 +132,6 @@
    $GLOBAL:shortDomain = ($longDomain -replace '.com','')
    $userObj = [Employee]::New()
    $password = "TopSecret123!"
-
           </code></pre>
         <p>
           In ‘ouList’ list, replace the string values with your own OU’s, the numbers aren’t necessary
@@ -166,7 +167,7 @@
           while loop with the condition of ‘!$ckey’ and as mentioned before this is saying to
           keep looping while value is null or empty.<br><br>
           As you might have noticed, ckey will have the array entry including the number, so we
-          need to cut that off the first 4 characters like ‘1 - ‘ and just get the name. IMPORTANT:
+          need to cut that off the first 4 characters like ‘1 - ‘ and just get the name. Note:
           If you did not include numbers in your ‘ouList’ array then remove the substring command.
         </p>
 
@@ -334,8 +335,6 @@
     #add user to be member of
     #Add-ADGroupMember -Identity $PutGroupHere -Members $this.SamName
   }
-
-
           </code></pre>
         <br>
         <p>
