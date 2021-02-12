@@ -311,7 +311,8 @@
           Set as a ‘void’ since we aren’t returning any variables to the main script. It uses all the
           Objects set properties and find the distinguished path to the group that user picked.
           ‘New-AdUser’ sets all the values which again can be customized to however your
-          Organization sets it. Then adds user to be group member with ‘Add-ADGroupMember’
+          Organization sets it. I needing to add the user to be a 'memberof' then uncomment the
+          ‘Add-ADGroupMember’ command fill in the group.
         </p>
 
         <pre><code>
@@ -331,7 +332,7 @@
        -ChangePasswordAtLogon $true
 
     #add user to be member of
-    Add-ADGroupMember -Identity $this.userGroup -Members $this.SamName
+    #Add-ADGroupMember -Identity $PutGroupHere -Members $this.SamName
   }
 
 
@@ -469,7 +470,7 @@
            -ChangePasswordAtLogon $true
 
            #add user to be member of
-           Add-ADGroupMember -Identity $this.userGroup -Members $this.SamName
+           #Add-ADGroupMember -Identity $PutGroupHere -Members $this.SamName
     }
 
   }

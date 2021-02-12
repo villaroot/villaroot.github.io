@@ -2,10 +2,10 @@ p{
   font-family: 'Lato', sans-serif;
 }
 a{
-  color: white;
+  color: #09091d;
 }
 a:hover{
-  color: #86c232;
+  color: #394867;
 }
 h4{
   font-family: 'Playfair Display', serif !important;
@@ -17,14 +17,11 @@ h6{
   font-family: 'Playfair Display', serif !important;
 }
 footer{
-  background-color: #222629;
+  background-color: #f4f4f2;
   text-align: center;
-  color: #DDDDDD;
+  color: #09091d;
 }
 
-#main{
-  background-color: white;
-}
 .container-fluid{
   padding: 0;
 }
@@ -35,30 +32,37 @@ footer{
 /* about me content */
 .myName{
   display: inline;
-  color: #86c232;
+  color: #e4e4f7;
 }
 
 /* navbar */
 .navbar{
   font-family: 'Playfair Display', serif !important;
-  background-color: #222629;
-  border-bottom: 1px solid #6b6e70;
+  background-color: #09091d;
+  border-bottom: 1px solid #e4e4f7;
   padding-left: 5%;
   padding-right: 5%;
 }
 .navbar-brand{
   font-size: 2rem;
-  color: #86c232;
+  color: #e4e4f7;
+}
+.navbar a {
+  color: #e4e4f7;
+}
+.navbar a:hover {
+  color: #394867;
 }
 .navbar-brand:hover{
-  color: white;
+  color: #394867;
 }
 
 /* Jumbotron content */
  .jumbotron{
-  background-color: #222629;
-  color:white;
+  background-color: #09091d;
+  color: #f5f5f5;
   margin-bottom: 0;
+  border-bottom: 3px solid #394867;
 }
 .title-container{
   padding-left: 6%;
@@ -70,23 +74,28 @@ footer{
   height: auto;
   border-radius: 5px;
 }
-
-
+.linkedin-Image{
+  max-width: 40px;
+  height: auto;
+}
 /* article content */
 .all-body{
-  background-color: #222629;
-  padding-bottom: 1%;
+  background-color: #f5f5f5;
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+.mb-5{
+  margin-bottom: 0!important;
 }
 .outer-container{
-  background-color: #2c3134;
-  color: #DDDDDD;
+  color: #09091d;
   border-radius: 5px;
   margin: auto 5%;
   padding: 1.5%;
 }
 pre {
-  color: #DDDDDD;
-  border: 1px solid #86c232;
+  color: #09091d;
+  border: 1px solid #09091d;
   border-radius: 5px;
 }
 .indent-half{
@@ -114,7 +123,7 @@ pre {
 /* footer */
 .foot{
   padding: 1.3rem 0;
-  border-top: 1px solid #86c232;
+  border-top: 1px solid #09091d;
   text-align: center;
 
 }
