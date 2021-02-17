@@ -102,10 +102,13 @@ footer{
 .article-image{
   border: 2px solid #394867;
   border-radius: 5px;
-  max-width: 750px;
-  height: auto;
+  max-width: 100%;
+  max-height: 500px;
 }
-
+.make-smaller-image{
+  max-width: 675px;
+  height:auto;
+}
 .indent-half{
   margin-left: 1.5%;
 }
@@ -116,13 +119,9 @@ footer{
   margin-left: 6%;
 }
 /* mobile view */
-@media(max-width: 650px){
+@media(max-width: 700px){
     .jumbo-image{
       width: 250px;
-      height: auto;
-    }
-    .article-image{
-      max-width: 100%;
       height: auto;
     }
     pre {

