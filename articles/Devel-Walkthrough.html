@@ -83,7 +83,7 @@
         <h4 id="Summary">Summary:</h4>
         <p>
           Technical Walkthrough of Hack the Box's Devel machine. Devel is a Windows
-          machine, rated as an easy machine. It’s been about 8 months since I was
+          machine, rated as an easy. It’s been about 8 months since I was last
           active on Hack the Box, so I wanted to get back into the groove with a
           pretty easy machine. The enumeration and exploitation process was quick
           and simple. I’d recommend this machine for beginners.
@@ -91,41 +91,39 @@
         <!-- Enumeration -->
         <h4 id="Enumeration">Enumeration:</h4>
         <p>
-          Starting off the information gathering with a typical nmap scan of the common ports.
+          I started the information gathering with a typical nmap scan of the common ports.
           The results show that port 80 (http), and 21 (ftp) are open. The nice thing about ftp results
           on nmap is that it will also show if ‘Anonymous’ login is allowed. This means you don’t
-          need to know log in credentials and use username ‘Anonymous’ and leave the password
+          need to know a set of login credentials. Instead enter the username of ‘anonymous’ and leave the password
           field blank (just press enter) when prompted. It even lists the files in the folder
-          we will have access to. The files listed look like ones left over from other people
+          we will have access to. Note: The files listed look like ones left over from other people
           using the box.
         </p>
         <img class ="article-image"
           src="../images/CS-Images/Devel/nmap-1.png" alt="nmap-image"><br><br>
         <p>
-          To ftp use ‘ftp &lt;ip address&gt;’ and enter your creds. Since we know
-          that ‘Anonymous’ is accepted then I’ll use that as my username and press
+          To ftp, enter ‘ftp &lt;ip address&gt;’ and put your creds. Since we know
+          that ‘anonymous’ is accepted then I’ll use that as my username and press
           enter when prompted for passwords. To list the files in the directory that
-          you are in enter ‘dir’. Here we can see that there are a lot of files that
-          seem to be from other users, the ‘iisstart.html’ that is the welcome page,
-          along with ‘welcome.png’. I doubt there is any steganography on this welcome
-          png, but in other more difficult boxes that would be something to look into.
+          you are in type ‘dir’. Here we can see that there are a lot of files that
+          seem to be from other users, the ‘iisstart.html’ is the welcome page,
+          and ‘welcome.png’ is the image that's displayed on the main page.
+          I doubt there is any steganography on this welcome
+          png, and I didn't see anything useful in the html's source code.
+          On more difficult boxes that would be something to look into.
 
         </p>
         <img class ="article-image"
           src="../images/CS-Images/Devel/ftp-1.png" alt="ftp-image"><br><br>
-        <p>
-          I have a file on my machine to use when I want to test if I can tranfer
-          files to a machine. It's a text file name 'text.txt' with random words inside.
-          The tranfer was successful by entering 'put text.txt', so I know I can try putting
-          a executable to get a reverse shell.
-        </p>
 
         <!-- exploation -->
         <h4 id="Exploitation">Exploitation:</h4>
         <p>
+          I found out I have privileges to transfer files, so I'll try putting a payload to get
+          a reverse shell.
           I’ll be using msfvenom to create the payload, and metasploit to set up the
-          listener to get my reverse shell. So I will be using the payload
-          ‘windows/meterpreter/reverse_tcp’ then set the local host ‘LHOST’
+          listener to get my reverse shell. I used the payload
+          ‘windows/meterpreter/reverse_tcp’, then set the local host ‘LHOST’
           to your machine and the listening port ‘LPORT’ to the port you want
           to listen on. Note: you can find your IP with 'ifconfig' and it's listed
           under tun0. The port can pretty much be any one that isn’t a common
@@ -139,17 +137,17 @@
 
         <p>
           With the payload created, we can now put it on the target machine through ftp.
-          To transfer the file enter 'put &lt;your file name&gt;' in my case 'put jv-devel.aspx'.
+          To transfer the file type 'put &lt;your file name&gt;' in my case 'put jv-devel.aspx'.
           Then 'dir' to make sure it's listed.
         </p>
         <img class ="article-image"
           src="../images/CS-Images/Devel/put-payload.png" alt="ftp-image"><br><br>
         <p>
           Now it’s time to set up the listener on metasploit, enter ‘msfconsole’ in a
-          command prompt. The exploit for these msfvenom shells is ‘exploit/multi/handler’.
-          Here we set the options to match the options when we created the payload with
+          command prompt. The exploit for the msfvenom shells is ‘exploit/multi/handler’.
+          Here we set the options to match what we used when we created the payload with
           msfvenom. Set payload to ‘windows/meterpreter/reverse_tcp’, set lhost to your
-          attacking machine, and the port to the you chose. Once completed, double check
+          attacking machine, and the port to the whichever you choose. Once completed, double check
           the setting with ‘show options’.
         </p>
         <img class ="article-image"
@@ -185,9 +183,9 @@
         <p>
           Exiting the shell and changing to '/multi/recon/local_exploit_suggester'
           I list the possible exploits. With a couple trial and errors I find
-          the right exploit of '/exploit/windows/local/ms10_015_kitrap0d'. 'show options'
-          to see what needs to be set. Looks like just the session. As noted eariler
-          session 1 was being used for inital exploit, so we just need to enter 'set session 1'.
+          the right exploit of '/exploit/windows/local/ms10_015_kitrap0d'. Type 'show options'
+          to see what needs to be set. Looks like just the session. As noted eariler,
+          session 1 is being used for inital exploit, so we just need to enter 'set session 1'.
           Then execute with 'exploit' or 'run'.
         </p>
         <img class ="article-image"

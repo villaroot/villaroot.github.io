@@ -76,16 +76,20 @@
     <!-- body content -->
     <div class="all-body">
       <div class="outer-container shadow-lg p-3 mb-5 rounded">
-        <h4>Summary:</h4>
+        <h4>Go To:</h4>
+        <a href="#Summary">Summary</a><br>
+        <a href="#cmdlet">Cmdlet(s)</a><br>
+        <a href="#Details">Details</a><br>
+        <a href="#full-code">Full Script Code</a><br><br>
+        <h4 id="Summary">Summary:</h4>
         <p>
-          Creating users in Active Directory is a very common task, but can be very tedious to do manually.
+          Creating users in Active Directory is a very common task, but can be tedious to do manually.
           This led me to create this Object Oriented script which also supports parameters. This same object
-          will be used in other AD posts to allow readers to add them together easily into one script. Just
-          adjust properties to your environment requirements. Cmdlet used will be New-ADUser.
+          will be used in my other AD posts to allow you to add them together easily into one script.
+          Main Cmdlet used will be New-ADUser.
         </p>
-        <p>To skip to the full script click <a href="#full-code">here</a> </p><br>
 
-        <h4>Cmdlet:</h4>
+        <h4 id="cmdlet">Cmdlet(s):</h4>
         <p>
           New-AdUser <br>
           Used to create new users in active directory. Requires SamAccountName to be declared as a property, the rest
@@ -95,7 +99,7 @@
           </a>
         </p>
         <br>
-        <h4>Details:</h4>
+        <h4 id="Details">Details:</h4>
         <p>
           Parameters are first set to declare the main variables that we are going to be using. I'm a big
           fan of using Parameter in scripts, so I include them as often as possible. For creation of an
@@ -115,16 +119,16 @@
             </code></pre>
 
         <p>
-          Import-module activedirectory is required to use Active Directory in powershell. FYI this can be
-          added in server manager >add feature > ad module for powershell.
+          'Import-module activedirectory' is required to modify Active Directory in powershell. FYI this can be
+          added by going to server manager >add feature > ad module for powershell.
           To allow the script to be run in different domains without modification, ‘longdomain’ finds
           the current domain and ‘shortdomain’ takes off the ‘.com’ at the end. If your domain
           doesn’t end in ‘.com’ then no worries, 'shortdomain' will just be set to the full domain.
           <br><br>
           here we also introduce the creation of the object we will be using of ‘employee’
-          and call it $userobj outside of the class. <br>
-          modify $password to whichever is the default password in your organization.
-          the script sets the account to change at next logon.
+          and call it $userobj for this part of the script. <br>
+          Modify $password to your default password.
+          Later you'll see the script sets the password to be change at next logon.
         </p>
         <pre><code>
    Import-Module ActiveDirectory
@@ -135,8 +139,8 @@
           </code></pre>
         <p>
           In ‘ouList’ list, replace the string values with your own OU’s, the numbers aren’t necessary
-          But some people find them easier to use than having to type out the whole name.
-          Now we can ask the user for which group they want to add the user to. This will only
+          but some people find them easier to use over having to type out the whole name.
+          Now we ask the user for which group they want to add the user to. This will only
           be displayed if ‘group’ hasn’t been given as a param with the ‘if(!$group)’ statement.
           This is essentially saying if the group variable is null or empty perform this action.
           <br><br>
@@ -165,9 +169,9 @@
           Let’s do a verification check to make sure ‘ckey’ is not actually empty. And if it is, then ask
           for the user to re-enter the value until ‘ckey’ has a value inside. To do this we’ll put it in a
           while loop with the condition of ‘!$ckey’ and as mentioned before this is saying to
-          keep looping while value is null or empty.<br><br>
-          As you might have noticed, ckey will have the array entry including the number, so we
-          need to cut that off the first 4 characters like ‘1 - ‘ and just get the name. Note:
+          keep looping while 'ckey' is null or empty.<br><br>
+          As you might have realized, ckey will have the array entry including the number, so we
+          need to cut that off the first 4 characters like ‘1 - ‘ and only get the OU name. Note:
           If you did not include numbers in your ‘ouList’ array then remove the substring command.
         </p>
 
@@ -199,7 +203,7 @@
 
         <p>
           Now that we have all the values we need from the user, lets pass them
-          to our object Employee. We will see these varibles in a little when
+          to our object 'Employee'. We will see these varibles in a little bit when
           we declare them in the actual object.
         </p>
 
@@ -213,8 +217,8 @@
 
         <p>
           The benefit of creating classes is we can create methods to do all the dirty work which
-          allows the main code to look cleaner. So the first method we would like to do is create a
-          generate a username/Sam account Name for when we create the account. Let’s name
+          allows the main code to look cleaner. So the first method we would like to do is
+          generate a username/SamAccountName for when we create the account. Let’s name
           it ‘GetSamName’ and only call it if a username wasn’t given as a Parameter.
 
         </p>
@@ -232,12 +236,12 @@
         <p>
           For the last part of the main script, before we get to the object, we will call the method
           to create the account then clear the variables. This is helpful because sometimes they stay
-          in cache and can cause problems if you run the script again since there’s alot of logic that
+          in cache and can cause problems if you run the script again since there’s logic that
           says do such and such if the variable is empty<br><br>
           Instead of just calling the method I want to put it in a try/catch statement which are great
-          for error handling. If successful then it will print the ‘success’ output and perform a
+          for error handling. If the 'try'block is successful then it will print the ‘success’ output and perform a
           Get-Aduser on the new account to print out its details. If there’s an error then it will
-          display the ‘fail’ message and give the error
+          go to the 'catch' block and display the ‘fail’ message and output the error with '$_'.
 
         </p>
 
@@ -256,9 +260,9 @@
           </code></pre>
 
         <p>
-          Finally welcome to the object of Employee, here we will set the properties
-          and methods. Throughout the object I will refer to this variables with variables
-          of '$this'
+          Finally welcome to the object of 'Employee'. Declare the properties first, followed by the methods.
+          Throughout the object I will refer to it's variables with variables of '$this'.
+          For example, think of '$this.SamName' as 'Employee.SamName'.
         </p>
         <pre><code>
   class Employee{
@@ -270,10 +274,10 @@
           </code></pre>
 
         <p>
-          Here is our first of two methods ‘GetSamName’ and set as a ‘void’ since we won’t be
-          returning any variable back to the main script. This snippet is where will be modified
-          to however your organization sets the username. Here it takes the first name initial, period,
-          first 6 characters of last name, and a number. So mine would be ,j.villar1'.
+          Here is our first method ‘GetSamName’ and we will set as a ‘void’ because we won’t be
+          returning anything. Nodify this part to however your orginazation set's thier usernames.
+          Here it takes the first name initial, period,
+          first 6 characters of last name, and a number. So mine would be 'j.villar1' with this logic.
         </p>
 
         <pre><code>
@@ -292,8 +296,8 @@
           </code></pre>
 
         <p>
-          While the username that we generate is taken then add ‘1’ to the end and check again. Repeat
-          until a username is not already taken. Then pass this back to the class property of ‘SamName’
+          While the username that we generate is taken, increase number at the end by 1 and check again. Repeat
+          until a username is not taken. Then pass this back to the class property of ‘SamName’.
         </p>
 
         <pre><code>
@@ -308,12 +312,12 @@
           </code></pre>
 
         <p>
-          At last we finally get to the method to actually create the account. ‘CreateAccount’ is also
-          Set as a ‘void’ since we aren’t returning any variables to the main script. It uses all the
-          Objects set properties and find the distinguished path to the group that user picked.
-          ‘New-AdUser’ sets all the values which again can be customized to however your
-          Organization sets it. I needing to add the user to be a 'memberof' then uncomment the
-          ‘Add-ADGroupMember’ command fill in the group.
+          Now we get to the method that creates the account ‘CreateAccount’. It is also
+          set as a ‘void’ since we aren’t returning any variables to the main script. It uses all the
+          object's properties and finds the distinguished path to the group that user picked.
+          ‘New-AdUser’ sets all the values which again can be customized to your liking.
+          If you need to add the user to be a 'memberof' then uncomment the
+          ‘Add-ADGroupMember’ command and replace '$PutGroupHere' with the group name.
         </p>
 
         <pre><code>
