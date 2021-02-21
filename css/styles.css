@@ -71,8 +71,8 @@ footer{
 }
 .outer-title{
   font-family: 'Playfair Display', serif;
-  margin-left: 1%;
-  padding-left: 1.5%;
+  margin-left: 1.5%;
+  padding-left: 1%;
   border-left: 2px solid #09091d;
 }
 
@@ -122,6 +122,9 @@ footer{
 
 /* smaller screen adjust */
 @media(max-width: 650px){
+    .side-container{
+      margin: 5% 3%;
+    }
     img {
       max-width: 75%!important;
       height: auto;

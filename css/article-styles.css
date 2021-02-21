@@ -79,6 +79,10 @@ footer{
   height: auto;
   border-radius: 5px;
 }
+.inner-date{
+  font-style: italic;
+  color: #394867;
+}
 .linkedin-Image{
   max-width: 40px;
   height: auto;
