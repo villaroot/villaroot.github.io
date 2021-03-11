@@ -61,12 +61,11 @@
 
     <!-- jumbotron -->
     <div class="jumbotron jumbotron-fluid ">
-      <div class="d-flex flex-wrap justify-content-center align-items-center title-container">
-
+      <div class="d-flex flex-wrap justify-content-center title-container">
         <div class=" image-container ">
           <img class="jumbo-image" src="../images/Main-Linux.png" alt="ImageForTitle">
         </div>
-        <div class="title-container ">
+        <div class="title-text ">
           <h1 class="jumbo-header">Bash: Using For-Loop One-Liners for Admin Tasks</h1>
           <h6 class="inner-date">Date: Febuary 18, 2021</h6>
         </div>
@@ -96,9 +95,9 @@
         </p>
         <pre><code>
   for [element] in [given list]
-    do
-	  [Commands]
-    done
+  do
+    [Commands]
+  done
         </code></pre>
     <p>
       The example above is essentially saying for every ‘element’ in the ‘given list’
@@ -113,10 +112,10 @@
     </p>
     <pre><code>
   for i in messages secure
-    do
-     echo $i
-     cat $i | tail -1
-    done
+  do
+    echo $i
+    cat $i | tail -1
+  done
     </code></pre>
     <p>
       We will use 'i' as the element to hold the current variable. The list we are providing
@@ -165,8 +164,8 @@
   for i in 1 2;do echo $i; ssh -q dataserver$i "cksum /var/log/test.log";done
       </code></pre>
       <p>
-        Lastly, I did a max of two different commands in the 'do' block but if you want to perform
-        more then just add another semicolon and put the other command.
+        If you want to do more than two commands in the 'do' block, just add another semicolon then
+        put the other command.
         <br /><br />Thanks for reading about Bash for-loops from a Linx Admin's point of view!
       </p>
 
