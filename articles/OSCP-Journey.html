@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="../images/favicon.png">
+  <title>OSCP Journey</title>
+  <meta name="description" content="Resources to pass the OSCP certification. Deatailed Explanation of how I passed the OSCP, with Exam break down.">
+  <meta name="keywords" content="VillaRoot, Villa root, Linux, OSCP, offensive security, resources, penetration, testing, hacking, ethical">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- google font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- CSS stylesheet -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/article-styles.css">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+  <section id="top">
+    <div class="container-fluid">
+
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-md">
+        <a class="navbar-brand" href="../index.html">Villa~Root</a>
+        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarToggler">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarToggler">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-items">
+              <a class="nav-link" href="../windows.html">Windows</a>
+            </li>
+            <li class="nav-items">
+              <a class="nav-link" href="../linux.html">Linux</a>
+            </li>
+            <li class="nav-items">
+              <a class="nav-link" href="../cybersecurity.html">CyberSecurity</a>
+            </li>
+            <li class="nav-items">
+              <a class="nav-link" href="../aboutme.html">About Me</a>
+            </li>
+          </ul>
+        </div>
+
+      </nav>
+    </div>
+  </section>
+
+
+    <section id="main">
+
+      <!-- jumbotron -->
+      <div class="jumbotron jumbotron-fluid ">
+        <div class="d-flex flex-wrap justify-content-center title-container">
+          <div class=" image-container ">
+            <img class="jumbo-image" src="../images/Main-CS.jpg" alt="ImageForTitle">
+          </div>
+          <div class="title-text ">
+            <h1 class="jumbo-header">OSCP Journey</h1>
+            <h6 class="inner-date">Date: November 23, 2021</h6>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- body content -->
+      <div class="all-body">
+        <div class="outer-container shadow-lg p-3 mb-5 rounded">
+          <h4>Go To:</h4>
+          <a href="#Summary">Summary</a><br>
+          <a href="#Top Resources">Top Resources</a><br>
+          <a href="#Study Breakdown">Study Breakdown</a><br>
+          <a href="#Exam 1">Exam 1</a><br>
+          <a href="#Exam 2">Exam 2</a><br>
+          <a href="#Exam 3">Exam 3</a><br>
+          <a href="#Report Writing">Report Writing</a><br>
+          <a href="#Final Thoughts">Final Thoughts</a><br><br>
+
+          <h4 id="Summary">Summary:</h4>
+          <p>
+            Highly recommend going through the OSCP certification, the amount of knowledge
+            I gained throughout my studies was astounding. I signed up for the 90-day PWK
+            Course in April and got my OSCP in November the same year on my third exam attempt.
+            When I first signed up the PWK course I had very basic Penetration testing knowledge,
+            I could barley do an easy box on Hack the Box and that’s only with hints. I do have
+            about a year and half work experience managing/supporting Linux and Windows Servers.
+            This did help me as I was very comfortable navigating around a server, and dealing
+            with custom made scripts written in Bash, PowerShell, and Python. If you’re
+            contemplating waiting or just going for it; I’d say if you have fundamental
+            knowledge of Servers and Cyber Security then that’s good enough to start.
+            You’ll learn what you need to as you go.
+          </p>
+
+          <h4 id="Top Resources">Top Resources:</h4>
+          <p>
+            Hacking platforms<br>
+            <a href="https://portal.offensive-security.com/proving-grounds/">Proving Grounds</a><br>
+            <a href="https://tryhackme.com/">Try Hack Me </a><br>
+            <a href="https://docs.google.com/spreadsheets/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/edit#gid=1097814569">TJ Null List</a><br><br>
+
+            Content Creators<br>
+            <a href="https://www.udemy.com/course/linux-privilege-escalation/ ">Tib3rius Priv Udemy Linux Priv Escilation</a><br>
+            <a href="https://www.udemy.com/course/windows-privilege-escalation/">Tib3rius Priv Udemy Windows Priv Escilation</a><br>
+            <a href="https://tryhackme.com/room/bufferoverflowprep">Tib3rius Buffer Overflow</a><br>
+            <a href="<a href="https://academy.tcm-sec.com/">The Cyber Mentor</a><br>
+            <a href="https://www.youtube.com/watch?v=Z2pQuGmFNrM&t=8637s">Alh4zr3d BOF</a><br>
+            <a href="https://www.twitch.tv/alh4zr3d">Alh4zr3d Twitch Stream</a><br><br>
+
+            Note taking software<br>
+            <a href="https://www.giuspen.com/cherrytree/">CherryTree Notes</a><br>
+
+          </p>
+
+          <h4 id="Study Breakdown">Study Breakdown:</h4>
+          <p>
+            PWK PDF book - Once you sign up and pay the course fee, it takes about a week (at least
+            it did for me) to get your ‘start’ date which is the date you officially start the PWK
+            course and get the PDF book. I highly recommend going through the PDF and actually
+            performing the exercises in the Lab environment. It’s easy to skim and not think it’s
+            needed but going through the exercises will get you to actually learn each topic in
+            detail. You get 5 extra points if you complete all the exercises, but I don’t think
+            it’s worth it because there are A TON of exercises, and it will take too long.
+            Instead, just spend a day on a chapter. If you can’t fully complete the exercises,
+            at least you did enough to understand the topic deeper. For the first month I went
+            through the PDF exclusively.
+            <br><br>
+            PWK Lab – Along with the PDF book, you also get access to the Lab environment,
+            and the ‘student forum’. Where other students can help with hints on the Lab
+            machines. I didn’t spend too much time here, there is a list of around 7-8 machines
+            it says to start off with and will give hints on how to exploit them. I basically
+            just did those machines which took about half a month.
+            <br><br>
+            Hacking Platforms –<br>
+            Proving Grounds: On my Third Month I felt comfortable enough to start practicing on
+            hacking platforms and went straight to Proving Grounds which is Offensive Security’s
+            Hacking platform. It was highly recommended, and I will put my stamp on that
+            recommendation as well. The machines have the same feel as the OSCP machines, and
+            was the best preparation for the exams. Before my 1 Exam attempt I did about 30
+            machines in the paid ‘Practice’ section, through the whole studying I did about
+            50 machines. I used TJ_Null’s list as a guide to which ones to make sure to cover.
+            <br><br>
+             Try Hack Me: I basically only did the SQL Injection, LFI, and Buffer Overflow Prep
+             rooms. The Buffer Overflow Prep room is the go-to study/practice material. The LFI
+             and SQL injection rooms were good, and helped me practice on those topics more.
+             There are plenty of rooms to practice and touch up on certain skills, so feel free
+             to check others out as well.
+            <br><br>
+            Content Creators - <br>
+            Tib3rius: His Priv Escalation courses on Udemy are very good, they are straight to the
+            point and shows him running through each of his topics. The Buffer Overflow Prep room
+            on Try Hack Me is the 'go to', to practice BOF and is a necessity. <br><br>
+            The Cyber Mentor: His courses are very beginner friendly, and does a good job making
+            topics easy to understand. I would recommend it being the starting point if you don’t
+            want to purchase the PWK course just yet but want to get a better understand of what
+            to expect when studying for the OSCP.<br><br>
+            Alh4zr3d: I found his content towards the end of my journey, and I wish I found it sooner.
+            His Buffer Overflow video is in my opinion the best at explaining what’s going on.
+            I try to catch his twitch stream as often as I can. He has it during the evenings
+            Tuesday, Thursday, and Sunday. Where Tuesday is his ‘noob Tuesday’ and goes through
+            boxes while explaining as if everyone is a ‘noob’. Which is great because if you
+            are unsure of why certain commands are ran, or about certain methodologies, this
+            is the perfect time to ask.
+            <br><br>
+            At the end of my 90-day Course period I scheduled my exam for a month out. The
+            slots do fill up quick, so schedule as soon as you can. You are also able to
+            reschedule up to 3 times in case something comes up preventing you from the
+            taking the exam as long as you do so within 48 hours of the exam time. All
+            three of my exams started at 5PM, as that time works best for me. Your screen
+            will be proctored and no cell phones are allowed next to you. You are allowed
+            to enter the proctored room up to 15 before the exam. It will be through a
+            browser extension, and will require a webcam to be set up. <br>
+
+          </p>
+
+          <h4 id="Exam 1">Exam 1 FAIL (55-points):</h4>
+          <p>
+            5PM – 10:00PM<br>
+            I started my exam at 5PM, got my machines and for the first 30 minutes I was trying
+            to set everything up including my nmap scans on the 4 non-BOF machines.<br> For nmap scans
+            I use: sudo nmap -A -p- (ipaddress) |tee nmap-scan.out <br> Once I was set up, I
+            started on the BOF (25-points) and went through my steps. It took a lot longer
+            than I wanted, but I finally got my exploit script working around 9:30PM. I
+            had got stuck and decided to go through the whole process again to see what
+            was causing my script to not work. It ended up being I had written down my
+            IP address wrong so my payload was being sent to the wrong IP address. I
+            took about a 30-minute break afterwards.
+            <br><br>
+            10:00PM – 12:00PM<br>
+            To get quick points I went to the easy box (10-points) and didn’t have to much
+            trouble. I enumerated each port that appeared in my nmap scan. Eventually found
+            the right exploit, and got the needed flag. Took about a 20-minute break afterwards.
+            <br><br>
+            12:00PM – 5:00AM<br>
+            By Midnight I only had 35 points and was discouraged because I had planned to have
+            55 points by the time I go to sleep. I still very focused, so I decided to keep
+            going and started on one of the Intermediate (20-point) machines. I got an initial
+            foothold around 3:00am, and took a quick break. I thought I was still feeling okay,
+            and I’m very comfortable with Privilege Escalation so I wanted to keep going.
+            I found the right path pretty quick, but was having issues getting it to work.
+            Around 5:00AM I got the exploit working and was able to get the needed flag.
+            <br><br>
+            5:00AM – 10:00AM<br>
+            Here I took a nap. Just kidding, here is where I SHOULD HAVE TAKEN A NAP; however,
+            I was stubborn and had adrenaline and stayed up. In my head I was saying I just
+            need one more box and I pass this exam that I was so excited to get. I felt my
+            stubble with the BOF just through me off and I didn’t have much trouble with the
+            two other boxes so far. I made the poor decision to keep going, I checkout the
+            ports. Tried a few things that didn’t work, and tried some other things that
+            didn’t work. Time flew so fast and by the time I knew it, it was around 10:00AM.
+            Then I hit a wall, a sleep/exhausted wall.
+            <br><br>
+            10:00AM – 4:45PM<br>
+            I was feeling the sleepiness hard, and could not focus on anything. I kept catching
+            myself staring onto the same work for 10 minutes straight. I felt it was too
+            late to take a nap, and pretty much made zero progress. Time was up and I
+            ended the exam with 55-points.
+            <br><br>
+            I felt the biggest hit was my initial struggle with the BOF, it got me to a
+            bad start and I should have finished it a lot sooner which would have let me
+            get my goal of 55-points before I fell asleep. I scheduled my exam for a month
+            away (the required cool down period). I got busy with work and didn’t really do
+            much studying in between. Probably just 4-5 boxes on Proving Grounds during the whole month.
+            <br><br>
+          </p>
+
+          <h4 id="Exam 2">Exam 2 FAIL (45-points):</h4>
+          <p>
+            5:00PM – 7:30PM<br>
+            Started my nmap scans on the 4 non-BOF machine, then started working on BOF.
+            Took about an hour and half – two hours to get BOF.<br>
+            For nmap scans I use: sudo nmap -A -p- (ipaddress) |tee nmap-scan.out
+            <br><br>
+            7:30PM – 10:00PM<br>
+            I went to the easy 10 pointer and was having issues running a python script.
+            I was getting specific module failures and tried to resolve but wasn’t able to.
+            During my studies I modify the environment and I believe I must have messed up
+            the needed modules. I would try uninstalling and installing but couldn’t get it
+            work. I don’t end up rooting this machine during my exam. I strongly believe I
+            had the right path but couldn’t get the script working (weeks later I realize
+            it was my VM and ended up restoring from old snapshot before my third exam).
+            <br><br>
+            10:00PM – 2:00AM<br>
+            Without getting the easy box, I decided to switch to one of the intermediate
+            (20-point) box. I was enumerating and thought I found some intriguing paths,
+            but ended up not getting anything during this time.
+            <br><br>
+            2:00AM – 8:00AM<br>
+            Remembering how sleepy I was during my first exam I had to take a nap on this
+            attempt. Which I did, and woke up around 8AM.
+            <br><br>
+            8:00AM – 11:00AM<br>
+            I switched to the other intermediate (20-point) box and started enumerating
+            from the nmap scan results. I was able to get an initial shell in about two
+            hours and root in about an hour.
+            <br><br>
+            11:00AM – 5:00PM<br>
+            With 45 points, I would either need the hard or both easy and intermediate
+            boxes to pass. The hard box looked pretty intimidating (you’ll know when you
+            see the hard boxes). Since I had already enumerated/ worked on the easy and
+            intermediate, I decided I already had progress on those and went that route.
+            I spent most of the time on the intermediate and got really far in a path.
+            I just couldn’t get an initial shell and didn’t get any points. For the easy,
+            I still couldn’t get the python modules working and wasn’t able to get any
+            points either. I ended up failing with 45-points.
+            <br><br>
+            I wanted the required 2 months to book my third exam (This was way too much
+            time and the extra time didn’t help at all). During this time, I really
+            didn’t do any OSCP studying except for maybe a week before the exam to
+            take off some rust. Having taken the exam twice already, I pretty much
+            knew the ‘feel’ of the exams. I reset my VM to an earlier snapshot because
+            I was having python module issues on exam 2.
+            <br><br>
+          </p>
+
+          <h4 id="Exam 3">Exam 3 PASS (90-points):</h4>
+          <p>
+            5:00PM – 6:30PM<br>
+            Started my nmap scans as normal on the 4 non-BOF machines. Was able to
+            get BOF in about an hour and took a break afterwards.<br>
+            For nmap scans I use: sudo nmap -A -p- (ipaddress) |tee nmap-scan.out
+            <br><br>
+            6:30PM – 9:30PM<br>
+            I moved to the easy (10-point) box and enumerated really good. I had a
+            really good feeling on a certain path, but kept trying different ways
+            and couldn’t get it working. I didn’t want to waste more time so I switched boxed.
+            <br><br>
+            9:30PM – 2:30AM<br>
+            I switched to one of the intermediate (20-point) box and got an initial
+            shell around 1:00AM. The privilege escalation wasn’t too difficult for me
+            and I got the needed flags around 2:30AM.
+            <br><br>
+            2:30AM – 6:00AM<br>
+            I took a break at 2:30AM to take a nap. I tried, but was not able to
+            sleep. I decided to go back to the exam and try the other intermediate
+            (20-point) box. I was able to get the initial foothold and escalate my privileges
+            <br><br>
+            6:00AM – 12:00PM<br>
+            Took a much-needed nap, and felt so much better. This is where I should
+            have taken a nap on my first Exam, but you live and learn.
+            <br><br>
+            12:00PM – 1:00PM<br>
+            I just need 5 points to pass, so I try to go back to the easy box and
+            keep trying my exploit. After an hour I can’t get it work and start
+            feeling nervous. I didn’t feel like I was getting anywhere so I decided
+            to just leave it and go to the hard box.
+            <br><br>
+            1:00PM-4:45PM<br>
+            The hard box, was well… hard. It took about 3 difficult hours to get the
+            initial foothold. The privilege escalation was a bit difficult to find,
+            but I was able to get it working just in time. I got root/system access
+            and the needed flags around 4:30PM. I ended the exam passing with an
+            expected score of 90 points.
+            <br><br>
+          </p>
+
+          <h4 id="Report Writing">Report Writing:</h4>
+          <p>
+            The report wasn’t so much hard, as much as it was tedious. I took screenshots and
+            notes throughout the exam. Once I finished the exam, I just organized the notes
+            and screenshots to make it where someone can follow step by step. Make sure to
+            have screenshots of the ipaddress, the user you are, and the output including the FULL
+            path name to each flag.
+            The report took about 4-5 hours to complete, but I took many breaks in
+            between.
+            The way that I formatted the ‘walkthrough’ sections for each box was I
+            would be similar to below:
+            <pre><code>
+  *give brief sentence describing what I’m about to
+  Run: Put command here
+  *put screenshot of command running and output, highlight any key output
+             </code></pre>
+            <br>
+          </p>
+
+          <h4 id="Final Thoughts">Final Thoughts:</h4>
+          <p>
+              Going through the course is definitely worth it, I’ve learned so much
+              and it’s a course where you actually have to perform and showcase what
+              you’ve learned. If you can go through intermediate boxes on Proving Grounds
+              without any hints or walkthroughs, in my opinion you will do good on the
+              Exam. Take breaks often, and be careful for rabbit holes. When first
+              enumerating a box, take up to 15 minutes per port. Once you go through
+              the ports, take a step back and do triage. See which looks most
+              interesting and dig deeper. When all else fails, enumerate more.
+              Hopefully this writeup helps, and feel free to reach out if you have
+              any further questions. Can’t say anything about the boxes, but I can
+              help with guidance on how to study and such.
+          <br><br>
+          </p>
+
+
+        </div>
+      </div>
+
+
+
+    </section>
+    <!-- footer -->
+    <footer class="foot" id="footer">
+      <div class="footer-text">
+        <p>© Copyright 2021 VillaRoot</p>
+      </div>
+    </footer>
+  </body>
+
+  </html>
