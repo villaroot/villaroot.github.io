@@ -114,6 +114,12 @@ footer{
 .inner-article p{
   padding-top: .5%;
 }
+@media(max-width: 700px){
+  .banner-name{
+    width: 200px;
+    height: 35px;
+  }
+}
 
 /* footer */
 .foot{

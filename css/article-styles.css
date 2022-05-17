@@ -139,6 +139,10 @@ footer{
     p{
       font-size: .9rem;
     }
+    .banner-name{
+      width: 200px;
+      height: 35px;
+    }
     .outer-container {
       margin-left: 0;
       margin-right: 0;
@@ -146,7 +150,6 @@ footer{
     .jumbo-image{
       max-width: 100%;
       height: auto;
-
     }
     .title-container{
       padding-left: 0;

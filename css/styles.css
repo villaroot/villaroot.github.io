@@ -30,10 +30,12 @@ footer{
   padding-left: 5%;
   padding-right: 5%;
 }
+/*
 .navbar-brand{
   font-size: 2rem;
   color: #e4e4f7;
-}
+}*/
+
 .navbar a {
   color: #e4e4f7;
 }
@@ -124,6 +126,10 @@ footer{
 @media(max-width: 650px){
     .side-container{
       margin: 5% 3%;
+    }
+    .banner-name{
+      width: 200px;
+      height: 35px;
     }
     img {
       max-width: 75%!important;

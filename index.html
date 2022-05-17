@@ -29,7 +29,12 @@
 
       <!-- Navbar -->
       <nav class="navbar navbar-expand-md">
-        <a class="navbar-brand" href="index.html">Villa~Root</a>
+        <a class="navbar-expand md" href="index.html">
+          <img src="images/design-only.jpg" width="70" height="70" alt="logo-image">
+        </a>
+        <a class="navbar-expand md" href="index.html">
+          <img class="banner-name" src="images/name-only.png" width="250" height="50"  alt="name-image">
+        </a>
         <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarToggler">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -63,7 +68,7 @@
         <p class="jumbo-p">
           Windows: Sysadmin topics including Powershell<br>
           Linux: Sysadmin topics including Bash and Ansible<br>
-          CyberSecurity: Offensive and Defensive related topics
+          CyberSecurity: Pentesting topics, CTFs, Cert reviews
         </p>
       </div>
     </div>
@@ -74,6 +79,29 @@
         <div class="all-articles col-md-8">
 
           <!-- list articles -->
+
+          <!-- begining of article -->
+          <div class="inner-article row shadow-lg p-3 mb-5 bg-white rounded">
+            <a href="articles/Grep-bash.html">
+              <img class="inner-image" src="images/Main-Linux.png" alt="Article Image">
+            </a>
+            <div class="inner-header">
+              <a href="articles/Grep-bash.html">
+                <h3 class="inner-title">Bash: How to Grep Good</h3>
+                <h6 class="inner-date">Date: May 15, 2022</h6>
+              </a>
+            </div>
+            <p>
+              Grep is the command I used the most when I managed Linux Servers. It was crucial when
+              troubleshooting errors/failures in applications.
+              For Pentesting it’s great for finding information in a target’s environment.
+              Knowing how to grep is a must, but I see people not using it to its fullest potential.
+              This article will get you up to speed on what you need to know from basic to advance, and empress all your co-workers.
+            </p>
+          </div>
+          <!-- End of article -->
+
+          <!-- begining of article -->
           <div class="inner-article row shadow-lg p-3 mb-5 bg-white rounded">
             <a href="articles/OSCP-Journey.html">
               <img class="inner-image" src="images/Main-CS.jpg" alt="Article Image">
@@ -98,6 +126,7 @@
               You’ll learn what you need to as you go.
             </p>
           </div>
+          <!-- End of article -->
 
           <div class="inner-article row shadow-lg p-3 mb-5 bg-white rounded">
             <a href="articles/Bash-for-loop.html">
